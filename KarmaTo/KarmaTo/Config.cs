@@ -44,6 +44,11 @@ namespace KarmaTo
 
                 // Flee
                 Flee.Initialize();
+                Menu.AddSeparator();
+
+                // Draw
+                Draw.Initialize();
+
             }
 
             public static void Initialize()
@@ -118,6 +123,24 @@ namespace KarmaTo
                     Menu.Add("harassUseR", new CheckBox("Use R", false));
 
                     Menu.Add("harassMana", new Slider("Maximum mana usage in percent ({0}%)", 40));
+                }
+
+                public static void Initialize()
+                {
+                }
+            }
+
+            public static class Draw
+            {
+                public static bool DrawQ
+                {
+                    get { return Menu["drawQ"].Cast<CheckBox>().CurrentValue; }
+                }
+
+                static Draw()
+                {
+                    Menu.AddGroupLabel("Draw");
+                    Menu.Add("drawQ", new CheckBox("Draw Q", true));
                 }
 
                 public static void Initialize()
