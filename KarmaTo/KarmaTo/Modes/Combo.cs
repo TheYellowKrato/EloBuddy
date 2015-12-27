@@ -27,7 +27,7 @@ namespace KarmaTo.Modes
             if (target.IsValidTarget(Q.Range) && Q.IsReady() && Settings.UseQ)
             {
                 var pred = Q.GetPrediction(target);
-                if (pred.HitChance >= (target.IsMoving ? HitChance.High : HitChance.Medium))
+                if (pred.HitChance >= (target.IsMoving ? HitChance.High : HitChance.Medium) && !pred.Collision)
                 {
                     if (R.IsReady() && Settings.UseR)
                     {
