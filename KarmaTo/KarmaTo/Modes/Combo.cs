@@ -6,15 +6,11 @@ using Settings = KarmaTo.Config.Modes.Combo;
 //TODO :
 // Draw W Range when is active
 
+
 namespace KarmaTo.Modes
 {
     public sealed class Combo : ModeBase
     {
-        private static AIHeroClient _Player
-        {
-            get { return ObjectManager.Player; }
-        }
-
         public override bool ShouldBeExecuted()
         {
             return Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo);

@@ -28,27 +28,17 @@ namespace KarmaTo
 
         public static class Modes
         {
-            private static readonly Menu Menu;
-
             static Modes()
             {
-                Menu = Config.Menu.AddSubMenu("Modes");
-
-                // Combo
-                Combo.Initialize();
+                Combo.Initialize(Menu.AddSubMenu("Combo"));
                 Menu.AddSeparator();
-
-                // Harass
-                Harass.Initialize();
+                Harass.Initialize(Menu.AddSubMenu("Harass"));
                 Menu.AddSeparator();
-
-                // Flee
-                Flee.Initialize();
+                Flee.Initialize(Menu.AddSubMenu("Flee"));
                 Menu.AddSeparator();
-
-                // Draw
-                Draw.Initialize();
-
+                LaneClear.Initialize(Menu.AddSubMenu("LaneClear"));
+                Menu.AddSeparator();
+                Draw.Initialize(Menu.AddSubMenu("Draw"));
             }
 
             public static void Initialize()
@@ -57,11 +47,10 @@ namespace KarmaTo
 
             public static class Combo
             {
-                private static readonly CheckBox _useQ;
-                private static readonly CheckBox _useW;
-                private static readonly CheckBox _useE;
-                private static readonly CheckBox _useR;
-
+                private static  CheckBox _useQ;
+                private static  CheckBox _useW;
+                private static  CheckBox _useR;
+                private static Menu myMenu;
                 public static bool UseQ
                 {
                     get { return _useQ.CurrentValue; }
@@ -70,13 +59,13 @@ namespace KarmaTo
                 {
                     get { return _useW.CurrentValue; }
                 }
-                public static bool UseE
-                {
-                    get { return _useE.CurrentValue; }
-                }
                 public static bool UseR
                 {
                     get { return _useR.CurrentValue; }
+                }
+                public static Menu getMenu()
+                {
+                    return myMenu;
                 }
 
                 /*public static int PredictionChance
@@ -87,92 +76,143 @@ namespace KarmaTo
                 static Combo()
                 {
                     // Initialize the menu values
-                    Menu.AddGroupLabel("Combo");
-                    _useQ = Menu.Add("comboUseQ", new CheckBox("Use Q", true));
-                    _useW = Menu.Add("comboUseW", new CheckBox("Use W", true));
-                    _useE = Menu.Add("comboUseE", new CheckBox("Use E", true));
-                    _useR = Menu.Add("comboUseR", new CheckBox("Use R", true));
+
 
                     //Menu.Add("predictionHit", new Slider("Prediction for Q (not implemented : 2 by default)",2,1,3));
                 }
 
-                public static void Initialize()
+                public static void Initialize(Menu menu)
                 {
+                    myMenu = menu;
+                    myMenu.AddGroupLabel("Combo");
+                    _useQ = myMenu.Add("comboUseQ", new CheckBox("Use Q", true));
+                    _useW = myMenu.Add("comboUseW", new CheckBox("Use W", true));
+                    _useR = myMenu.Add("comboUseR", new CheckBox("Use R", true));
+                }
+            }
+
+            public static class LaneClear
+            {
+                public static bool UseQ
+                {
+                    get { return myMenu["clearUseQ"].Cast<CheckBox>().CurrentValue; }
+                }
+                public static int Mana
+                {
+                    get { return myMenu["clearMana"].Cast<Slider>().CurrentValue; }
+                }
+                public static Menu getMenu()
+                {
+                    return myMenu;
+                }
+                private static Menu myMenu;
+                static LaneClear()
+                {
+
+                }
+
+                public static void Initialize(Menu menu)
+                {
+                    myMenu = menu;
+                    myMenu.AddGroupLabel("LaneClear");
+                    myMenu.Add("clearUseQ", new CheckBox("Use Q", false));
+                    myMenu.Add("clearMana", new Slider("Maximum mana usage in percent ({0}%)", 40));
                 }
             }
 
             public static class Harass
             {
+                private static Menu myMenu;
                 public static bool UseQ
                 {
-                    get { return Menu["harassUseQ"].Cast<CheckBox>().CurrentValue; }
+                    get { return myMenu["harassUseQ"].Cast<CheckBox>().CurrentValue; }
                 }
                 public static bool UseR
                 {
-                    get { return Menu["harassUseR"].Cast<CheckBox>().CurrentValue; }
+                    get { return myMenu["harassUseR"].Cast<CheckBox>().CurrentValue; }
                 }
                 public static int Mana
                 {
-                    get { return Menu["harassMana"].Cast<Slider>().CurrentValue; }
+                    get { return myMenu["harassMana"].Cast<Slider>().CurrentValue; }
+                }
+                public static Menu getMenu()
+                {
+                    return myMenu;
                 }
 
                 static Harass()
                 {
-                    Menu.AddGroupLabel("Harass");
-                    Menu.Add("harassUseQ", new CheckBox("Use Q", false));
-                    Menu.Add("harassUseR", new CheckBox("Use R", false));
 
-                    Menu.Add("harassMana", new Slider("Maximum mana usage in percent ({0}%)", 40));
                 }
 
-                public static void Initialize()
+                public static void Initialize(Menu menu)
                 {
+                    myMenu = menu;
+                    myMenu.AddGroupLabel("Harass");
+                    myMenu.Add("harassUseQ", new CheckBox("Use Q", true));
+                    myMenu.Add("harassUseR", new CheckBox("Use R", false));
+
+                    myMenu.Add("harassMana", new Slider("Maximum mana usage in percent ({0}%)", 40));
                 }
             }
 
             public static class Draw
             {
+                private static Menu myMenu;
+                public static Menu getMenu()
+                {
+                    return myMenu;
+                }
                 public static bool DrawQ
                 {
-                    get { return Menu["drawQ"].Cast<CheckBox>().CurrentValue; }
+                    get { return myMenu["drawQ"].Cast<CheckBox>().CurrentValue; }
                 }
 
                 static Draw()
                 {
-                    Menu.AddGroupLabel("Draw");
-                    Menu.Add("drawQ", new CheckBox("Draw Q", true));
+
                 }
 
-                public static void Initialize()
+                public static void Initialize(Menu menu)
                 {
+                    myMenu = menu;
+                    myMenu.AddGroupLabel("Draw");
+                    myMenu.Add("drawQ", new CheckBox("Draw Q", true));
                 }
             }
 
             public static class Flee
             {
+                private static Menu myMenu;
                 public static bool UseQ
                 {
-                    get { return Menu["fleeUseQ"].Cast<CheckBox>().CurrentValue; }
+                    get { return myMenu["fleeUseQ"].Cast<CheckBox>().CurrentValue; }
                 }
                 public static bool UseE
                 {
-                    get { return Menu["fleeUseE"].Cast<CheckBox>().CurrentValue; }
+                    get { return myMenu["fleeUseE"].Cast<CheckBox>().CurrentValue; }
                 }
                 public static bool UseR
                 {
-                    get { return Menu["fleeUseR"].Cast<CheckBox>().CurrentValue; }
+                    get { return myMenu["fleeUseR"].Cast<CheckBox>().CurrentValue; }
+                }
+                public static Menu getMenu()
+                {
+                    return myMenu;
                 }
             
                 static Flee()
                 {
-                    Menu.AddGroupLabel("Flee");
-                    Menu.Add("fleeUseQ", new CheckBox("Use Q", true));
-                    Menu.Add("fleeUseE", new CheckBox("Use E", true));
-                    Menu.Add("fleeUseR", new CheckBox("Use R", true));
+ 
                 }
 
-                public static void Initialize()
+                public static void Initialize(Menu menu)
                 {
+                    myMenu = menu;
+                    myMenu.AddGroupLabel("Flee");
+                    myMenu.Add("fleeUseQ", new CheckBox("Use Q", true));
+                    myMenu.Add("fleeUseE", new CheckBox("Use E", true));
+                    myMenu.Add("fleeUseR", new CheckBox("Use R", true));
                 }
             }
         }
