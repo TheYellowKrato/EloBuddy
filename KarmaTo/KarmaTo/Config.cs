@@ -39,6 +39,8 @@ namespace KarmaTo
                 LaneClear.Initialize(Menu.AddSubMenu("LaneClear"));
                 Menu.AddSeparator();
                 Draw.Initialize(Menu.AddSubMenu("Draw"));
+                Menu.AddSeparator();
+                PermaActive.Initialize(Menu.AddSubMenu("PermaActive"));
             }
 
             public static void Initialize()
@@ -87,7 +89,7 @@ namespace KarmaTo
                     myMenu.AddGroupLabel("Combo");
                     _useQ = myMenu.Add("comboUseQ", new CheckBox("Use Q", true));
                     _useW = myMenu.Add("comboUseW", new CheckBox("Use W", true));
-                    _useR = myMenu.Add("comboUseR", new CheckBox("Use R", true));
+                    _useR = myMenu.Add("comboUseR", new CheckBox("Use combo Q+R", true));
                 }
             }
 
@@ -96,6 +98,14 @@ namespace KarmaTo
                 public static bool UseQ
                 {
                     get { return myMenu["clearUseQ"].Cast<CheckBox>().CurrentValue; }
+                }
+                public static bool UseR
+                {
+                    get { return myMenu["clearUseR"].Cast<CheckBox>().CurrentValue; }
+                }
+                public static int useQOn
+                {
+                    get { return myMenu["clearUseQOn"].Cast<Slider>().CurrentValue; }
                 }
                 public static int Mana
                 {
@@ -116,7 +126,39 @@ namespace KarmaTo
                     myMenu = menu;
                     myMenu.AddGroupLabel("LaneClear");
                     myMenu.Add("clearUseQ", new CheckBox("Use Q", false));
+                    myMenu.Add("clearUseR", new CheckBox("Use combo Q+R", false));
+                    myMenu.Add("clearUseQOn", new Slider("Use Q on minimum {0} minnions", 2, 2, 3));
                     myMenu.Add("clearMana", new Slider("Maximum mana usage in percent ({0}%)", 40));
+                }
+            }
+
+            public static class PermaActive
+            {
+                public static bool autoShieldTurret
+                {
+                    get { return myMenu["autoShieldTurret"].Cast<CheckBox>().CurrentValue; }
+                }
+                public static bool autoShieldSpell
+                {
+                    get { return myMenu["autoShieldSpell"].Cast<CheckBox>().CurrentValue; }
+                }
+
+                public static Menu getMenu()
+                {
+                    return myMenu;
+                }
+                private static Menu myMenu;
+                static PermaActive()
+                {
+
+                }
+
+                public static void Initialize(Menu menu)
+                {
+                    myMenu = menu;
+                    myMenu.AddGroupLabel("PermaActive");
+                    myMenu.Add("autoShieldTurret", new CheckBox("Auto shield turret", true));
+                    myMenu.Add("autoShieldSpell", new CheckBox("Auto shield spell", true));
                 }
             }
 
@@ -150,7 +192,7 @@ namespace KarmaTo
                     myMenu = menu;
                     myMenu.AddGroupLabel("Harass");
                     myMenu.Add("harassUseQ", new CheckBox("Use Q", true));
-                    myMenu.Add("harassUseR", new CheckBox("Use R", false));
+                    myMenu.Add("harassUseR", new CheckBox("Use combo R+Q", false));
 
                     myMenu.Add("harassMana", new Slider("Maximum mana usage in percent ({0}%)", 40));
                 }
@@ -212,7 +254,7 @@ namespace KarmaTo
                     myMenu.AddGroupLabel("Flee");
                     myMenu.Add("fleeUseQ", new CheckBox("Use Q", true));
                     myMenu.Add("fleeUseE", new CheckBox("Use E", true));
-                    myMenu.Add("fleeUseR", new CheckBox("Use R", true));
+                    myMenu.Add("fleeUseR", new CheckBox("Use combo E+R", true));
                 }
             }
         }

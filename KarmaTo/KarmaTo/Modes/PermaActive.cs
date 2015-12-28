@@ -1,13 +1,9 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Constants;
-using EloBuddy.SDK.Enumerations;
-using SharpDX;
-using System.Linq;
-//using Settings = KarmaTo.Config.Modes.PermaActive;
 
-//TODO :
-//Shield ally before he takes damage from turret
+using Settings = KarmaTo.Config.Modes.PermaActive;
+
 namespace KarmaTo.Modes
 {
     public sealed class PermaActive : ModeBase
@@ -25,6 +21,8 @@ namespace KarmaTo.Modes
         //Seems to be the cause of FPS drop
         private void onSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
+            if (!Settings.autoShieldSpell)
+                return;
             if (E.IsReady())
             {
                 if (!args.SData.IsAutoAttack() &&
@@ -40,6 +38,8 @@ namespace KarmaTo.Modes
 
         private void OnBasicAttack(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
+            if (!Settings.autoShieldTurret)
+                return;
             if (E.IsReady())
             {
                 if (sender is Obj_AI_Turret)
