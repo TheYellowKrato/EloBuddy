@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EloBuddy;
+﻿using EloBuddy;
 
 namespace KarmaTo
 {
@@ -13,5 +8,14 @@ namespace KarmaTo
         {
             return ObjectManager.Player;
         }
+        public static double square(double x)
+        {
+            return x * x;
+        }
+        public static double sqrt(double x)
+        {
+            return System.Math.Sqrt(x);
+        }
+
     }
 }
