@@ -21,26 +21,29 @@ namespace KarmaTo.Modes
         //TODO : Add 2 or 3 in settings
         private void AutoClear()
         {
-            var minions = Orbwalker.LaneclearMinions;
-            foreach (Obj_AI_Minion target in minions)
+            if (Q.IsReady() && Player.Instance.ManaPercent > Settings.Mana)
             {
-                float x = Utils.getPlayer().Distance(target);
-                int nb = 1;
-                foreach (Obj_AI_Minion minion in minions)
+                var minions = Orbwalker.LaneclearMinions;
+                foreach (Obj_AI_Minion target in minions)
                 {
-                    float y = target.Distance(minion);
-                    if (System.Math.Sqrt(x * x + y * y) >= Utils.getPlayer().Distance(minion))
+                    float x = Utils.getPlayer().Distance(target);
+                    int nb = 1;
+                    foreach (Obj_AI_Minion minion in minions)
                     {
-                        nb++;
+                        float y = target.Distance(minion);
+                        if (System.Math.Sqrt(x * x + y * y) >= Utils.getPlayer().Distance(minion))
+                        {
+                            nb++;
+                        }
                     }
-                }
-                if (nb > 1)
-                {
-                    var pred = Q.GetPrediction(target);
-                    if (!pred.Collision)
+                    if (nb > 1)
                     {
-                        Q.Cast(target);
-                        break;
+                        var pred = Q.GetPrediction(target);
+                        if (!pred.Collision)
+                        {
+                            Q.Cast(target);
+                            break;
+                        }
                     }
                 }
             }
