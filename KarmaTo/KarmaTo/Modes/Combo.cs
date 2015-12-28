@@ -1,6 +1,7 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Enumerations;
+
 using Settings = KarmaTo.Config.Modes.Combo;
 
 //TODO :
@@ -20,7 +21,7 @@ namespace KarmaTo.Modes
         {
             Orbwalker.DisableAttacking = false;
             var target = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
-            if (target.IsValidTarget(Q.Range) && Q.IsReady() && Settings.UseQ)
+            if (Q.IsReady() && Settings.UseQ && target.IsValidTarget(Q.Range))
             {
                 var pred = Q.GetPrediction(target);
                 if (pred.HitChance >= (target.IsMoving ? HitChance.High : HitChance.Medium) && !pred.Collision)
@@ -32,7 +33,7 @@ namespace KarmaTo.Modes
                     Q.Cast(pred.CastPosition);
                 }
             }
-            if(target.IsValidTarget(W.Range) && W.IsReady() && Settings.UseW)
+            if(W.IsReady() && Settings.UseW && target.IsValidTarget(W.Range))
             {
                 W.Cast(target);
             }

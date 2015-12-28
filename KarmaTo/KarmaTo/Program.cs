@@ -5,11 +5,6 @@ using EloBuddy.SDK.Rendering;
 using SharpDX;
 using Settings = KarmaTo.Config.Modes.Draw;
 
-//AutoShield when turret hit
-//AutoShield when ally is going to be hit
-
-
-
 namespace KarmaTo
 {
     public static class Program
