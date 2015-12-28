@@ -65,6 +65,10 @@ namespace KarmaTo
                 {
                     get { return _useR.CurrentValue; }
                 }
+                public static int comboUseRW
+                {
+                    get { return myMenu["comboUseRW"].Cast<Slider>().CurrentValue; }
+                }
                 public static Menu getMenu()
                 {
                     return myMenu;
@@ -90,6 +94,7 @@ namespace KarmaTo
                     _useQ = myMenu.Add("comboUseQ", new CheckBox("Use Q", true));
                     _useW = myMenu.Add("comboUseW", new CheckBox("Use W", true));
                     _useR = myMenu.Add("comboUseR", new CheckBox("Use combo Q+R", true));
+                    myMenu.Add("comboUseRW", new Slider("Use W+R combo when hp < ({0}%)", 40));
                 }
             }
 

@@ -21,6 +21,12 @@ namespace KarmaTo.Modes
         {
             Orbwalker.DisableAttacking = false;
             var target = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
+            if (W.IsReady() && Settings.UseW && target.IsValidTarget(W.Range))
+            {
+                if (R.IsReady() && Utils.getPlayer().HealthPercent < Settings.comboUseRW)
+                    R.Cast();
+                W.Cast(target);
+            }
             if (Q.IsReady() && Settings.UseQ && target.IsValidTarget(Q.Range))
             {
                 var pred = Q.GetPrediction(target);
@@ -32,10 +38,6 @@ namespace KarmaTo.Modes
                     }
                     Q.Cast(pred.CastPosition);
                 }
-            }
-            if(W.IsReady() && Settings.UseW && target.IsValidTarget(W.Range))
-            {
-                W.Cast(target);
             }
         }
     }
