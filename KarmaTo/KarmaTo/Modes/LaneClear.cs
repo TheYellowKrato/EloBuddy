@@ -31,7 +31,7 @@ namespace KarmaTo.Modes
                     foreach (Obj_AI_Minion minion in minions)
                     {
                         float y = target.Distance(minion);
-                        if (Utils.sqrt(Utils.square(x) + Utils.square(y)) >= Utils.getPlayer().Distance(minion))
+                        if (Utils.sqrt(Utils.square(x+(minion.BoundingRadius)/2) + Utils.square(y + (minion.BoundingRadius) / 2)) >= Utils.getPlayer().Distance(minion) + (minion.BoundingRadius) / 2)
                         {
                             nb++;
                         }
