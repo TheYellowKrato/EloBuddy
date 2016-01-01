@@ -49,9 +49,9 @@ namespace KarmaTo
 
             public static class Combo
             {
-                private static  CheckBox _useQ;
-                private static  CheckBox _useW;
-                private static  CheckBox _useR;
+                private static CheckBox _useQ;
+                private static CheckBox _useW;
+                private static CheckBox _useR;
                 private static Menu myMenu;
                 public static bool UseQ
                 {
@@ -214,6 +214,10 @@ namespace KarmaTo
                 {
                     get { return myMenu["drawQ"].Cast<CheckBox>().CurrentValue; }
                 }
+                public static bool DrawW
+                {
+                    get { return myMenu["drawW"].Cast<CheckBox>().CurrentValue; }
+                }
 
                 static Draw()
                 {
@@ -225,6 +229,7 @@ namespace KarmaTo
                     myMenu = menu;
                     myMenu.AddGroupLabel("Draw");
                     myMenu.Add("drawQ", new CheckBox("Draw Q", true));
+                    myMenu.Add("drawW", new CheckBox("Draw W when active", true));
                 }
             }
 
@@ -247,10 +252,10 @@ namespace KarmaTo
                 {
                     return myMenu;
                 }
-            
+
                 static Flee()
                 {
- 
+
                 }
 
                 public static void Initialize(Menu menu)

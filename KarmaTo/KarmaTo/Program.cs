@@ -4,6 +4,7 @@ using EloBuddy.SDK.Events;
 using EloBuddy.SDK.Rendering;
 using SharpDX;
 using Settings = KarmaTo.Config.Modes.Draw;
+using EloBuddy.SDK;
 
 namespace KarmaTo
 {
@@ -30,9 +31,19 @@ namespace KarmaTo
         }
 
         private static void OnDraw(EventArgs args)
-        {   
-            if(Settings.DrawQ)
-                Circle.Draw(Color.Red, SpellManager.Q.Range, Player.Instance.Position);
+        {
+            if (Settings.DrawQ)
+                Circle.Draw(Color.Blue, SpellManager.Q.Range, Utils.getPlayer().Position);
+            if (Settings.DrawW)
+            {
+                foreach (Obj_AI_Base ennemy in EntityManager.Heroes.Enemies)
+                {
+                    if (ennemy.HasBuff("karmaspiritbind"))
+                    {
+                        Circle.Draw(Color.Red, SpellManager.W.Range, ennemy.Position);
+                    }
+                }
+            }
         }
     }
 }

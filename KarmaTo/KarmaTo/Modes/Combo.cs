@@ -26,6 +26,8 @@ namespace KarmaTo.Modes
                 if (R.IsReady() && Utils.getPlayer().HealthPercent < Settings.comboUseRW)
                     R.Cast();
                 W.Cast(target);
+
+
             }
             if (Settings.UseQ)
                 SpellManager.castQ(target, Settings.UseR);
