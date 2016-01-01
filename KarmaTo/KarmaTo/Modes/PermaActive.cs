@@ -15,28 +15,22 @@ namespace KarmaTo.Modes
 
         public override void Execute()
         {
-            Obj_AI_Base.OnProcessSpellCast += onSpellCast;
-            Obj_AI_Base.OnBasicAttack += OnBasicAttack;
+
         }
-        //Seems to be the cause of FPS drop
-        private void onSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        public void onSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             if (!Settings.autoShieldSpell)
                 return;
-            if (E.IsReady())
+            if (sender.Team != Utils.getPlayer().Team && args.Target != null && (args.Target as AIHeroClient).IsValidTarget(SpellManager.E.Range))
             {
-                if (!args.SData.IsAutoAttack() &&
-                    sender.IsEnemy && args.Target != null &&
-                    args.Target is AIHeroClient &&
-                    (args.Target as AIHeroClient).IsAlly &&
-                    (args.Target as AIHeroClient).IsValidTarget(SpellManager.E.Range))
+                if (sender is AIHeroClient)
                 {
                     E.Cast((Obj_AI_Base)args.Target);
                 }
             }
         }
 
-        private void OnBasicAttack(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        public void OnBasicAttack(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
         {
             if (!Settings.autoShieldTurret)
                 return;

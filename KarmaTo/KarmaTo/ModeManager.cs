@@ -30,7 +30,8 @@ namespace KarmaTo
 
         public static void Initialize()
         {
-
+            Obj_AI_Base.OnProcessSpellCast += (Modes[0] as PermaActive).onSpellCast;
+            Obj_AI_Base.OnBasicAttack += (Modes[0] as PermaActive).OnBasicAttack;
         }
 
         private static void OnTick(EventArgs args)
