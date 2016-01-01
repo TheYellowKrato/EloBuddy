@@ -19,19 +19,13 @@ namespace KarmaTo.Modes
         {
             Orbwalker.DisableAttacking = true;
             var target = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
-            if (target.IsValidTarget(Q.Range) && Q.IsReady() && Settings.UseQ)
+            if (Settings.UseQ)
             {
-                var pred = Q.GetPrediction(target);
-                if (pred.HitChance >= (target.IsMoving ? HitChance.High : HitChance.Medium))
-                {
-                    Q.Cast(pred.CastPosition);
-                }
+                SpellManager.castQ(target,false);
             }
-            if (E.IsReady() && Settings.UseE)
+            if (Settings.UseE)
             {
-                if (R.IsReady())
-                    R.Cast();
-                E.Cast(ObjectManager.Player);
+                SpellManager.castE(Utils.getPlayer(), Settings.UseR);
             }
         }
     }

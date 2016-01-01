@@ -21,12 +21,9 @@ namespace KarmaTo.Modes
         {
             if (!Settings.autoShieldSpell)
                 return;
-            if (sender.Team != Utils.getPlayer().Team && args.Target != null && (args.Target as AIHeroClient).IsValidTarget(SpellManager.E.Range))
+            if (sender.Team != Utils.getPlayer().Team && args.Target != null && sender is AIHeroClient)
             {
-                if (sender is AIHeroClient)
-                {
-                    E.Cast((Obj_AI_Base)args.Target);
-                }
+                SpellManager.castE((Obj_AI_Base)args.Target, false);
             }
         }
 
@@ -34,17 +31,13 @@ namespace KarmaTo.Modes
         {
             if (!Settings.autoShieldTurret)
                 return;
-            if (E.IsReady())
+
+            if (sender is Obj_AI_Turret)
             {
-                if (sender is Obj_AI_Turret)
+                if (sender.IsEnemy && args.Target != null &&
+                    args.Target is AIHeroClient)
                 {
-                    if (sender.IsEnemy && args.Target != null &&
-                        args.Target is AIHeroClient &&
-                        (args.Target as AIHeroClient).IsValidTarget(SpellManager.E.Range))
-                    {
-                        E.Cast((Obj_AI_Base)args.Target);
-                        return;
-                    }
+                    SpellManager.castE((Obj_AI_Base)args.Target, false);
                 }
             }
         }

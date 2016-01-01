@@ -27,18 +27,8 @@ namespace KarmaTo.Modes
                     R.Cast();
                 W.Cast(target);
             }
-            if (Q.IsReady() && Settings.UseQ && target.IsValidTarget(Q.Range))
-            {
-                var pred = Q.GetPrediction(target);
-                if (pred.HitChance >= (target.IsMoving ? HitChance.High : HitChance.Medium) && !pred.Collision)
-                {
-                    if (R.IsReady() && Settings.UseR)
-                    {
-                        R.Cast();
-                    }
-                    Q.Cast(pred.CastPosition);
-                }
-            }
+            if (Settings.UseQ)
+                SpellManager.castQ(target, Settings.UseR);
         }
     }
 }

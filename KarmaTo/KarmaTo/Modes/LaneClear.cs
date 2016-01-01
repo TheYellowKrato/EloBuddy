@@ -15,6 +15,7 @@ namespace KarmaTo.Modes
 
         public override void Execute()
         {
+            Orbwalker.DisableAttacking = false;
             AutoClear();
         }
         //Different logic : Use Q to make damage on minion
@@ -31,17 +32,16 @@ namespace KarmaTo.Modes
                     foreach (Obj_AI_Minion minion in minions)
                     {
                         float y = target.Distance(minion);
-                        if (Utils.sqrt(Utils.square(x+(minion.BoundingRadius)/2) + Utils.square(y + (minion.BoundingRadius) / 2)) >= Utils.getPlayer().Distance(minion) + (minion.BoundingRadius) / 2)
+                        if (Utils.sqrt(Utils.square(x + (minion.BoundingRadius) / 2) + Utils.square(y + (minion.BoundingRadius) / 2)) >= Utils.getPlayer().Distance(minion) + (minion.BoundingRadius) / 2)
                         {
                             nb++;
                         }
                     }
                     if (nb >= Settings.useQOn)
                     {
-                        if (Settings.UseR && R.IsReady())
-                            R.Cast();
+                        if (Settings.UseR)
+                            SpellManager.castR();
                         var pred = Q.GetPrediction(target);
-
                         if (!pred.Collision)
                         {
                             Q.Cast(target);

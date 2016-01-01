@@ -18,21 +18,10 @@ namespace KarmaTo.Modes
         public override void Execute()
         {
             Orbwalker.DisableAttacking = false;
-            if (Q.IsReady() && Settings.UseQ && Player.Instance.ManaPercent > Settings.Mana)
+            if (Settings.UseQ && Player.Instance.ManaPercent > Settings.Mana)
             {
                 var target = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
-                if (target.IsValidTarget(Q.Range))
-                {
-                    var pred = Q.GetPrediction(target);
-                    if (pred.HitChance >= (target.IsMoving ? HitChance.High : HitChance.Medium))
-                    {
-                        if (R.IsReady() && Settings.UseR)
-                        {
-                            R.Cast();
-                        }
-                        Q.Cast(pred.CastPosition);
-                    }
-                }
+                SpellManager.castQ(target, Settings.UseR);
             }
         }
     }
