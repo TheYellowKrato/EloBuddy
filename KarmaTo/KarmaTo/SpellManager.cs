@@ -37,13 +37,13 @@ namespace KarmaTo
             }
         }
 
-        public static void castQ(Obj_AI_Base target, bool useR)
+        public static void castQ(Obj_AI_Base target, bool useR, double predictionHitChance)
         {
             if (Q.IsReady() && target.IsValidTarget(Q.Range))
             {
                 var pred = Q.GetPrediction(target);
                 //No collisions we cast it directly
-                if (pred.HitChance >= (target.IsMoving ? HitChance.High : HitChance.Medium) && !pred.Collision)
+                if (pred.HitChancePercent >= predictionHitChance && !pred.Collision)
                 {
                     if (useR)
                         castR();

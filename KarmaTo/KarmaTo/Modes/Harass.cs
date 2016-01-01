@@ -21,7 +21,7 @@ namespace KarmaTo.Modes
             if (Settings.UseQ && Player.Instance.ManaPercent > Settings.Mana)
             {
                 var target = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
-                SpellManager.castQ(target, Settings.UseR);
+                SpellManager.castQ(target, Settings.UseR, Config.Modes.Combo.predictionHit);
             }
         }
     }

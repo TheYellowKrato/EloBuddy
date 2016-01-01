@@ -21,7 +21,7 @@ namespace KarmaTo.Modes
             var target = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
             if (Settings.UseQ)
             {
-                SpellManager.castQ(target,false);
+                SpellManager.castQ(target,false,Config.Modes.Combo.predictionHit);
             }
             if (Settings.UseE)
             {

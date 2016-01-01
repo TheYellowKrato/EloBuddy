@@ -30,7 +30,7 @@ namespace KarmaTo.Modes
 
             }
             if (Settings.UseQ)
-                SpellManager.castQ(target, Settings.UseR);
+                SpellManager.castQ(target, Settings.UseR,Settings.predictionHit);
         }
     }
 }

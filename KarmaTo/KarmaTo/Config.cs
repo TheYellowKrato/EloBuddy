@@ -74,17 +74,17 @@ namespace KarmaTo
                     return myMenu;
                 }
 
-                /*public static int PredictionChance
+                public static double predictionHit
                 {
-                    get { return Menu["predictionHit"].Cast<Slider>().CurrentValue; }
-                }*/
+                    get { return myMenu["predictionHit"].Cast<Slider>().CurrentValue; }
+                }
 
                 static Combo()
                 {
                     // Initialize the menu values
 
 
-                    //Menu.Add("predictionHit", new Slider("Prediction for Q (not implemented : 2 by default)",2,1,3));
+
                 }
 
                 public static void Initialize(Menu menu)
@@ -95,6 +95,7 @@ namespace KarmaTo
                     _useW = myMenu.Add("comboUseW", new CheckBox("Use W", true));
                     _useR = myMenu.Add("comboUseR", new CheckBox("Use combo Q+R", true));
                     myMenu.Add("comboUseRW", new Slider("Use W+R combo when hp < ({0}%)", 40));
+                    myMenu.Add("predictionHit", new Slider("Prediction for Q", 70));
                 }
             }
 
