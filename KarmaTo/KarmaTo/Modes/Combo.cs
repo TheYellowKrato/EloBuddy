@@ -1,4 +1,5 @@
-﻿using EloBuddy;
+﻿using System;
+using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Enumerations;
 
@@ -30,7 +31,7 @@ namespace KarmaTo.Modes
 
             }
             if (Settings.UseQ)
-                SpellManager.castQ(target, Settings.UseR,Settings.predictionHit);
+                SpellManager.castQ(target, Settings.UseR, Settings.predictionHit);
         }
     }
 }

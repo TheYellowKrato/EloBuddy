@@ -4,6 +4,7 @@ using KarmaTo.Modes;
 using EloBuddy;
 using EloBuddy.SDK.Enumerations;
 using EloBuddy.SDK.Utils;
+using EloBuddy.SDK.Events;
 
 namespace KarmaTo
 {
@@ -32,6 +33,7 @@ namespace KarmaTo
         {
             Obj_AI_Base.OnProcessSpellCast += (Modes[0] as PermaActive).onSpellCast;
             Obj_AI_Base.OnBasicAttack += (Modes[0] as PermaActive).OnBasicAttack;
+            Gapcloser.OnGapcloser += (Modes[0] as PermaActive).OnGapcloser;
         }
 
         private static void OnTick(EventArgs args)

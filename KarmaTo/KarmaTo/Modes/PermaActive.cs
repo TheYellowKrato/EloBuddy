@@ -1,7 +1,7 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Constants;
-
+using EloBuddy.SDK.Events;
 using Settings = KarmaTo.Config.Modes.PermaActive;
 
 namespace KarmaTo.Modes
@@ -39,6 +39,14 @@ namespace KarmaTo.Modes
                 {
                     SpellManager.castE((Obj_AI_Base)args.Target, false);
                 }
+            }
+        }
+        //AntiGapCloser
+        public void OnGapcloser(AIHeroClient sender, Gapcloser.GapcloserEventArgs e)
+        {
+            if (sender.Team == Utils.getPlayer().Team)
+            {
+                E.Cast(sender);
             }
         }
     }
