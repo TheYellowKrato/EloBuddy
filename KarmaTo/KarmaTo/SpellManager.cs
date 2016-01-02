@@ -49,7 +49,7 @@ namespace KarmaTo
                         castR();
                     Q.Cast(pred.CastPosition);
                 }
-                //Collisions : Damn we need to reflect ...
+                //Collisions : Damn we need to use something called the brain ...
                 else
                 {
 
@@ -58,7 +58,6 @@ namespace KarmaTo
                     {
                         if (objet is Obj_AI_Minion)
                         {
-
                             if (target.Distance(objet) <= (objet as Obj_AI_Minion).BoundingRadius + target.BoundingRadius)
                             {
                                 if (useR)

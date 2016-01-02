@@ -21,7 +21,7 @@ namespace KarmaTo.Modes
         {
             if (!Settings.autoShieldSpell)
                 return;
-            if (sender.Team != Utils.getPlayer().Team && args.Target != null && sender is AIHeroClient)
+            if (sender.Team != Utils.getPlayer().Team && args.Target != null && sender is AIHeroClient && args.Target is AIHeroClient)
             {
                 SpellManager.castE((Obj_AI_Base)args.Target, false);
             }
