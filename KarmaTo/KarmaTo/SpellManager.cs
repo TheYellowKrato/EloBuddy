@@ -56,9 +56,8 @@ namespace KarmaTo
                     if (pred.CollisionObjects.Length != 0)
                     {
                         collision = pred.CollisionObjects[0];
-                        (collision.IsValidTarget() &&
-                         target.Distance(collision.Position) < Q.Width))
-                            {
+                        if (collision.IsValidTarget() && target.Distance(collision.Position) < Q.Width)
+                        {
                             if (useR)
                                 castR();
                             Q.Cast(pred.CastPosition);
