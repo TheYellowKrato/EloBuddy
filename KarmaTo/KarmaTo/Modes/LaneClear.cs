@@ -1,6 +1,6 @@
 ﻿using EloBuddy;
 using EloBuddy.SDK;
-
+using System.Collections.Generic;
 using Settings = KarmaTo.Config.Modes.LaneClear;
 //AA minions in order to have multiple minion to one shot with Q
 //Use Q to touch the most of minion killable 
@@ -16,38 +16,41 @@ namespace KarmaTo.Modes
         public override void Execute()
         {
             Orbwalker.DisableAttacking = false;
-            AutoClear();
+            autoClearReworked();
         }
-        //Different logic : Use Q to make damage on minion
-        //TODO : Add 2 or 3 in settings
-        private void AutoClear()
+        private void autoClearReworked()
         {
-            if (Q.IsReady() && Settings.UseQ && Player.Instance.ManaPercent > Settings.Mana)
+            var minions = Orbwalker.LaneclearMinions.FindAll(m => m.IsValidTarget(Q.Range));
+
+            if (minions.Count == 0)
             {
-                var minions = Orbwalker.LaneclearMinions;
-                foreach (Obj_AI_Minion target in minions)
+                return;
+            }
+
+            if (Q.IsReady())
+            {
+                if (Utils.getPlayer().ManaPercent >= Settings.Mana)
                 {
-                    float x = Utils.getPlayer().Distance(target);
-                    int nb = 1;
-                    foreach (Obj_AI_Minion minion in minions)
+                    var minion = minions[0];
+                    var targeted = 0;
+                    foreach (var m in minions)
                     {
-                        float y = target.Distance(minion);
-                        if (Utils.sqrt(Utils.square(x + (minion.BoundingRadius) / 2) + Utils.square(y + (minion.BoundingRadius) / 2)) >= Utils.getPlayer().Distance(minion) + (minion.BoundingRadius) / 2)
+                        var lTargeted = minions.FindAll(lm => lm != m && lm.Distance(m) < 250f).Count;
+                        if (lTargeted > targeted)
                         {
-                            nb++;
+                            var pred = Q.GetPrediction(m);
+
+                            if (!pred.Collision)
+                            {
+                                minion = m;
+                                targeted = lTargeted;
+                            }
                         }
                     }
-                    if (nb >= Settings.useQOn)
-                    {
-                        if (Settings.UseR)
-                            SpellManager.castR();
-                        var pred = Q.GetPrediction(target);
-                        if (!pred.Collision)
-                        {
-                            Q.Cast(target);
-                            break;
-                        }
-                    }
+
+                    if (minion != null && targeted >= 1)
+                        SpellManager.castQ(minion, Settings.UseR, Config.Modes.Combo.predictionHit);
+                    return;
                 }
             }
         }

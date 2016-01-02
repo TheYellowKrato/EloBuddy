@@ -109,10 +109,6 @@ namespace KarmaTo
                 {
                     get { return myMenu["clearUseR"].Cast<CheckBox>().CurrentValue; }
                 }
-                public static int useQOn
-                {
-                    get { return myMenu["clearUseQOn"].Cast<Slider>().CurrentValue; }
-                }
                 public static int Mana
                 {
                     get { return myMenu["clearMana"].Cast<Slider>().CurrentValue; }
@@ -133,7 +129,6 @@ namespace KarmaTo
                     myMenu.AddGroupLabel("LaneClear");
                     myMenu.Add("clearUseQ", new CheckBox("Use Q", false));
                     myMenu.Add("clearUseR", new CheckBox("Use combo Q+R", false));
-                    myMenu.Add("clearUseQOn", new Slider("Use Q on minimum {0} minnions", 2, 2, 3));
                     myMenu.Add("clearMana", new Slider("Maximum mana usage in percent ({0}%)", 40));
                 }
             }
