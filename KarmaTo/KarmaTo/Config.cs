@@ -40,7 +40,7 @@ namespace KarmaTo
                 Menu.AddSeparator();
                 Draw.Initialize(Menu.AddSubMenu("Draw"));
                 Menu.AddSeparator();
-                PermaActive.Initialize(Menu.AddSubMenu("PermaActive"));
+                PermaActive.Initialize(Menu.AddSubMenu("Misc"));
             }
 
             public static void Initialize()
@@ -143,6 +143,10 @@ namespace KarmaTo
                 {
                     get { return myMenu["autoShieldSpell"].Cast<CheckBox>().CurrentValue; }
                 }
+                public static bool antiGapCloser
+                {
+                    get { return myMenu["antiGapCloser"].Cast<CheckBox>().CurrentValue; }
+                }
 
                 public static Menu getMenu()
                 {
@@ -160,6 +164,7 @@ namespace KarmaTo
                     myMenu.AddGroupLabel("PermaActive");
                     myMenu.Add("autoShieldTurret", new CheckBox("Auto shield turret", true));
                     myMenu.Add("autoShieldSpell", new CheckBox("Auto shield spell", true));
+                    myMenu.Add("antiGapCloser", new CheckBox("Anti GapCloser", true));
                 }
             }
 

@@ -44,9 +44,12 @@ namespace KarmaTo.Modes
         //AntiGapCloser
         public void OnGapcloser(AIHeroClient sender, Gapcloser.GapcloserEventArgs e)
         {
-            if (sender.Team == Utils.getPlayer().Team)
+            if (Settings.antiGapCloser)
             {
-                E.Cast(sender);
+                if (sender.Team == Utils.getPlayer().Team && sender.IsValidTarget(E.Range))
+                {
+                    E.Cast(sender);
+                }
             }
         }
     }
