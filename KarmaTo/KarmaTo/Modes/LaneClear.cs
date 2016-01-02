@@ -35,7 +35,7 @@ namespace KarmaTo.Modes
                     var targeted = 0;
                     foreach (var m in minions)
                     {
-                        var lTargeted = minions.FindAll(lm => lm != m && lm.Distance(m) < 250f).Count;
+                        var lTargeted = minions.FindAll(lm => lm != m && lm.Distance(m) < 200f).Count;
                         if (lTargeted > targeted)
                         {
                             var pred = Q.GetPrediction(m);

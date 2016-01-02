@@ -27,9 +27,9 @@ namespace KarmaTo
             }
         }
 
-        public static void castE(Obj_AI_Base target,bool useR)
+        public static void castE(Obj_AI_Base target, bool useR)
         {
-            if(E.IsReady() && target.IsValidTarget(E.Range))
+            if (E.IsReady() && target.IsValidTarget(E.Range))
             {
                 if (useR)
                     castR();
@@ -52,28 +52,17 @@ namespace KarmaTo
                 //Collisions : Damn we need to use something called the brain ...
                 else
                 {
-
-                    var collisions = pred.CollisionObjects;
-                    foreach (Obj_AI_Base objet in collisions)
+                    var collision = new Obj_AI_Base();
+                    if (pred.CollisionObjects.Length != 0)
                     {
-                        if (objet is Obj_AI_Minion)
-                        {
-                            if (target.Distance(objet) <= (objet as Obj_AI_Minion).BoundingRadius + target.BoundingRadius)
+                        collision = pred.CollisionObjects[0];
+                        (collision.IsValidTarget() &&
+                         target.Distance(collision.Position) < Q.Width))
                             {
-                                if (useR)
-                                    castR();
-                                Q.Cast(objet);
-                            }
-                        }
-                        else if (objet is AIHeroClient)
-                        {
-                            var predObj = Q.GetPrediction(objet);
-                            if (pred.HitChance >= (objet.IsMoving ? HitChance.High : HitChance.Medium))
-                            {
-                                if (useR)
-                                    castR();
-                                Q.Cast(predObj.CastPosition);
-                            }
+                            if (useR)
+                                castR();
+                            Q.Cast(pred.CastPosition);
+                            return;
                         }
                     }
                 }
