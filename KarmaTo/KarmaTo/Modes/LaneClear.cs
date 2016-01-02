@@ -22,7 +22,7 @@ namespace KarmaTo.Modes
         {
             var minions = Orbwalker.LaneclearMinions.FindAll(m => m.IsValidTarget(Q.Range));
 
-            if (minions.Count == 0)
+            if (minions.Count <= 1)
             {
                 return;
             }
