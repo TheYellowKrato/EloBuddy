@@ -20,7 +20,7 @@ namespace KarmaTo.Modes
         }
         private void autoClearReworked()
         {
-            var minions = Orbwalker.LaneclearMinions.FindAll(m => m.IsValidTarget(Q.Range));
+            var minions = Orbwalker.LastHitMinionsList.FindAll(m => m.IsValidTarget(Q.Range));
 
             if (minions.Count <= 1)
             {
